@@ -24,6 +24,13 @@ app.get("/edit/:filename", function(req,res){
         res.render("edit",{data,filename:req.params.filename})
     })
     })
+    
+    app.get("/delete/:filename", function(req,res){
+    fs.unlink(`./files/${req.params.filename}`, function(err,data){
+         if(err)  return res.send(err);
+        res.redirect("/")
+    })
+    })
     app.post("/update/:filename", function(req,res){
     fs.writeFile(`./files/${req.params.filename}`, req.body.filedata,function(err){
          if(err)  return res.send(err);
